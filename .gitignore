@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# ML models
+*.pt
+*.onnx
+*.engine
+
+# Datasets
+data/raw/
+data/processed/
+datasets/
+
+# Videos/images generated during testing
+*.mp4
+*.avi
+*.mov
+
+# Node
+node_modules/
+dashboard/dist/
+dashboard/build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
