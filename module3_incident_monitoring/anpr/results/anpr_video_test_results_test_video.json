@@ -1,0 +1,163 @@
+{
+  "input_video": {
+    "path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\test video\\test_video.mp4",
+    "resolution": "1280x720",
+    "fps": 24.0,
+    "total_frames_in_file": 240
+  },
+  "execution_summary": {
+    "frames_processed": 240,
+    "processing_duration_sec": 38.55,
+    "average_throughput_fps": 6.23,
+    "mean_frame_latency_ms": 159.21,
+    "device": "cpu",
+    "ocr_checkpoint": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\ocr_checkpoints\\best_ocr_model.pt"
+  },
+  "pipeline_metrics": {
+    "total_vehicle_detections": 1343,
+    "unique_vehicle_tracks": 19,
+    "plate_candidates_localized": 406,
+    "ocr_inference_attempts": 406,
+    "ocr_successful_recognitions": 397,
+    "tracks_with_consensus_plate": 8
+  },
+  "tracks_summary": {
+    "1": {
+      "track_id": 1,
+      "final_plate_consensus": "MH1749",
+      "consensus_confidence": 0.548,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "2": {
+      "track_id": 2,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "3": {
+      "track_id": 3,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "4": {
+      "track_id": 4,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "5": {
+      "track_id": 5,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "6": {
+      "track_id": 6,
+      "final_plate_consensus": "KH01AM",
+      "consensus_confidence": 0.282,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "7": {
+      "track_id": 7,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "8": {
+      "track_id": 8,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "9": {
+      "track_id": 9,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "10": {
+      "track_id": 10,
+      "final_plate_consensus": "MH01",
+      "consensus_confidence": 0.495,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "11": {
+      "track_id": 11,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "12": {
+      "track_id": 12,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "13": {
+      "track_id": 13,
+      "final_plate_consensus": "MH02BR3",
+      "consensus_confidence": 0.614,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "14": {
+      "track_id": 14,
+      "final_plate_consensus": "MH4BT",
+      "consensus_confidence": 0.571,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "15": {
+      "track_id": 15,
+      "final_plate_consensus": "TL14",
+      "consensus_confidence": 0.328,
+      "status": "recognized",
+      "total_readings": 20
+    },
+    "16": {
+      "track_id": 16,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "17": {
+      "track_id": 17,
+      "final_plate_consensus": "TN214",
+      "consensus_confidence": 0.368,
+      "status": "recognized",
+      "total_readings": 10
+    },
+    "18": {
+      "track_id": 18,
+      "final_plate_consensus": null,
+      "consensus_confidence": 0.0,
+      "status": "unavailable",
+      "total_readings": 0
+    },
+    "19": {
+      "track_id": 19,
+      "final_plate_consensus": "TR01",
+      "consensus_confidence": 0.247,
+      "status": "recognized",
+      "total_readings": 19
+    }
+  },
+  "output_artifacts": {
+    "annotated_video": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\output_videos\\anpr_annotated_test_video.mp4",
+    "results_json": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\results\\anpr_video_test_results_test_video.json"
+  }
+}

@@ -20,7 +20,8 @@ class ModuleInfo(BaseModel):
     type: Literal[
         "road_defect",
         "traffic",
-        "incident_anpr"
+        "incident_anpr",
+        "passenger_demand"
     ]
     version: str = "1.0"
 

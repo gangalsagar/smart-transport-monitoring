@@ -1,0 +1,298 @@
+# ============================================================
+# SMART TRANSPORT MONITORING
+# CENTRAL CONFIGURATION
+# ============================================================
+
+project:
+  name: smart-transport-monitoring
+  version: "1.0.0"
+
+
+# ============================================================
+# SHARED CAMERA & UNIFIED PIPELINE
+# ============================================================
+
+shared_camera:
+  enabled: true
+  source: "file"                   # "file" (pre-recorded) | "live" (connected mobile camera)
+  combined_input_video: "data/videos/combined_test_video.mp4"
+  camera_index: 1                  # 1 for connected mobile camera (Phone Link / Windows Camera Device)
+  frame_skip: 1
+
+
+# ============================================================
+# SHARED GPS ARCHITECTURE
+# ============================================================
+
+gps:
+  provider: "laptop"               # "laptop" (Windows Location Services) | "mobile" | "simulated"
+  poll_interval_seconds: 1.0
+  stale_threshold_seconds: 15.0
+
+
+# ============================================================
+# MODULE 1 — ROAD DEFECT
+# ============================================================
+
+
+
+module1_road_defect:
+  enabled: true
+
+  # ----------------------------------------------------------
+  # AI MODEL
+  # ----------------------------------------------------------
+  model:
+    path: "runs/detect/module1_road_defect/runs/yolov8s_pothole_baseline/weights/best.pt"
+    confidence: 0.28
+    image_size: 640
+    device: "cpu"
+
+
+
+  # ----------------------------------------------------------
+  # VIDEO / CAMERA
+  # ----------------------------------------------------------
+  vision:
+    frame_skip: 5
+    input_video: "module1_road_defect/data/videos/test_video.mp4"
+    output_video: "module1_road_defect/data/video_output/tracked_output.mp4"
+
+
+  # ----------------------------------------------------------
+  # TRACKER
+  # ----------------------------------------------------------
+  tracker:
+    iou_threshold: 0.30
+    confirmation_hits: 2
+    max_missing_frames: 30
+
+
+  # ----------------------------------------------------------
+  # GPS
+  #
+  # Development:
+  #   simulated
+  #
+  # Future edge phone:
+  #   phone
+  #
+  # Future dedicated receiver:
+  #   gnss
+  # ----------------------------------------------------------
+  gps:
+    mode: "simulated"
+
+    phone:
+      endpoint: "http://127.0.0.1:9000/gps"
+      timeout: 3
+      max_age_seconds: 10
+
+    gnss:
+      port: "COM3"
+      baudrate: 9600
+      timeout: 2
+
+
+  # ----------------------------------------------------------
+  # EDGE DEVICE
+  # ----------------------------------------------------------
+  device:
+    bus_id: "BUS-TEST"
+    device_id: "EDGE-01"
+    camera_id: "FRONT_CAM"
+
+
+  # ----------------------------------------------------------
+  # LOCAL STORAGE
+  # ----------------------------------------------------------
+  storage:
+    alert_file: "module1_road_defect/data/alerts/alerts.jsonl"
+    queue_database: "module1_road_defect/data/alerts/alert_queue.db"
+    evidence_directory: "module1_road_defect/data/evidence"
+
+
+# ============================================================
+# CENTRAL BACKEND
+# ============================================================
+
+backend:
+  enabled: true
+  url: "http://127.0.0.1:8001"
+  timeout: 5
+
+
+# ============================================================
+# EDGE SYNCHRONIZATION
+# ============================================================
+
+sync:
+  enabled: true
+  interval_seconds: 5
+  batch_size: 20
+
+
+# ============================================================
+# RUNTIME
+# ============================================================
+
+runtime:
+  offline_first: true
+  persist_alerts_locally: true
+  send_alerts_directly_from_vision: false
+
+
+# ============================================================
+# MODULE 2 — TRAFFIC MONITORING
+# ============================================================
+
+module2_traffic:
+  enabled: true
+
+
+  # ----------------------------------------------------------
+  # AI MODEL — INDIAN VEHICLE DETECTION
+  # ----------------------------------------------------------
+  model:
+    path: "runs/detect/runs/module2_traffic/indian_vehicle_yolov8s/weights/best.pt"
+    confidence: 0.35
+    image_size: 640
+    device: "cpu"
+
+
+    classes:
+      - "ambulance"
+      - "army vehicle"
+      - "auto rickshaw"
+      - "bicycle"
+      - "bus"
+      - "car"
+      - "garbagevan"
+      - "human hauler"
+      - "minibus"
+      - "minivan"
+      - "motorbike"
+      - "pickup"
+      - "policecar"
+      - "rickshaw"
+      - "scooter"
+      - "suv"
+      - "taxi"
+      - "three wheelers -CNG-"
+      - "truck"
+      - "van"
+      - "wheelbarrow"
+
+
+  # ----------------------------------------------------------
+  # VISION / VIDEO
+  # ----------------------------------------------------------
+  vision:
+    frame_skip: 3
+    input_video: "module2_traffic/data/videos/test_video.mp4"
+    output_video: "module2_traffic/data/output/traffic_annotated.mp4"
+    heatmap_video: "module2_traffic/data/output/traffic_heatmap.mp4"
+    heatmap_final_image: "module2_traffic/data/output/traffic_heatmap_final.jpg"
+
+
+  # ----------------------------------------------------------
+  # TRAFFIC HEATMAP
+  # ----------------------------------------------------------
+  heatmap:
+    radius: 30
+    decay: 1.0
+    alpha: 0.45
+
+
+  # ----------------------------------------------------------
+  # VEHICLE TRACKER
+  # ----------------------------------------------------------
+  tracker:
+    iou_threshold: 0.30
+    max_missing_frames: 20
+    confirmation_hits: 2
+
+
+  # ----------------------------------------------------------
+  # VIRTUAL COUNTING LINE
+  # line_position: vertical ratio 0.0 to 1.0 from top of frame
+  # ----------------------------------------------------------
+  counting:
+    line_position: 0.60
+    direction_enabled: true
+
+
+  # ----------------------------------------------------------
+  # CONGESTION ANALYSIS THRESHOLDS
+  # ----------------------------------------------------------
+  traffic:
+    low_threshold: 5
+    medium_threshold: 12
+    high_threshold: 20
+    observation_interval_seconds: 5
+
+
+  # ----------------------------------------------------------
+  # EDGE DEVICE IDENTITY
+  # ----------------------------------------------------------
+  device:
+    bus_id: "BUS-TEST"
+    device_id: "EDGE-01"
+    camera_id: "FRONT_CAM"
+
+
+  # ----------------------------------------------------------
+  # LOCAL STORAGE
+  # ----------------------------------------------------------
+  storage:
+    alert_file: "module2_traffic/data/alerts/traffic_events.jsonl"
+    queue_database: "module2_traffic/data/alerts/traffic_queue.db"
+    evidence_directory: "module2_traffic/data/evidence"
+
+
+# ============================================================
+# MODULE 3: INCIDENT MONITORING & EVENT-TRIGGERED ANPR
+# ============================================================
+module3_incident_monitoring:
+  enabled: true
+  accident_detection_enabled: true
+  rash_driving_detection_enabled: false
+  anpr_on_confirmed_incident_only: true
+  confidence_threshold: 0.65
+
+  evidence:
+    pre_incident_seconds: 3.0
+    post_incident_seconds: 3.0
+    max_buffer_frames: 45
+
+  anpr:
+    enabled: true
+    min_confidence: 0.70
+
+  emergency:
+    immediate_dispatch: true
+
+
+# ============================================================
+# MODULE 4: PASSENGER DEMAND INTELLIGENCE (DATA-DRIVEN)
+# ============================================================
+module4_passenger_demand:
+  enabled: true
+  bus_id: "BUS-102"
+  default_route_id: "25A"
+  bus_capacity: 60
+  aggregation_interval_seconds: 15
+  duplicate_window_seconds: 15.0
+  abnormal_submission_window_seconds: 20.0
+  abnormal_submission_threshold: 8
+  
+  pass_dataset:
+    path: "data/passenger/bus_passes.csv"
+    strict_route_validation: true
+    strict_date_validation: true
+
+  demand_thresholds:
+    low_load_factor: 0.50
+    normal_load_factor: 0.85
+    high_load_factor: 1.15
+    critical_load_factor: 1.40

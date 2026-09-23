@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Smart Transport GPS Bridge</title>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 24px;
+            background: #f4f6f8;
+            color: #18212b;
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #287447;
+            color: white;
+            font-weight: 700;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 14px;
+            background: #f1f4f6;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .coordinate {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Smart Transport GPS Bridge</h1>
+
+    <p>
+        This phone provides live GPS coordinates
+        to the Smart Transport Monitoring edge system.
+    </p>
+
+    <button onclick="startGPS()">
+        Start GPS
+    </button>
+
+    <div class="coordinate" id="coordinates">
+        Waiting for GPS...
+    </div>
+
+    <div class="status" id="status">
+        GPS service not started.
+    </div>
+
+</div>
+
+
+<script>
+
+let watchId = null;
+
+let currentPosition = null;
+
+
+/* ============================================================
+   START GPS
+   ============================================================ */
+
+function startGPS() {
+
+    if (!navigator.geolocation) {
+
+        updateStatus(
+            "ERROR: Geolocation is not supported by this browser."
+        );
+
+        return;
+    }
+
+
+    updateStatus(
+        "Requesting phone GPS permission..."
+    );
+
+
+    watchId =
+        navigator.geolocation.watchPosition(
+
+            position => {
+
+                currentPosition = {
+
+                    latitude:
+                        position.coords.latitude,
+
+                    longitude:
+                        position.coords.longitude,
+
+                    accuracy_m:
+                        position.coords.accuracy,
+
+                    timestamp:
+                        new Date(
+                            position.timestamp
+                        ).toISOString()
+
+                };
+
+
+                document.getElementById(
+                    "coordinates"
+                ).innerText =
+
+                    currentPosition.latitude.toFixed(6)
+                    + ", "
+                    +
+                    currentPosition.longitude.toFixed(6);
+
+
+                updateStatus(
+
+                    "GPS ACTIVE\n\n"
+                    +
+                    JSON.stringify(
+                        currentPosition,
+                        null,
+                        2
+                    )
+
+                );
+
+            },
+
+            error => {
+
+                updateStatus(
+                    "GPS ERROR: "
+                    + error.message
+                );
+
+            },
+
+            {
+
+                enableHighAccuracy: true,
+
+                maximumAge: 2000,
+
+                timeout: 10000
+
+            }
+
+        );
+
+}
+
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+function updateStatus(message) {
+
+    document.getElementById(
+        "status"
+    ).innerText = message;
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "raw_source_dir": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3",
+  "output_dir": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\indian_license_plate_ocr",
+  "total_xml_files": 1697,
+  "total_images_found": 1696,
+  "successful_ocr_samples": 1692,
+  "train_samples": 1353,
+  "val_samples": 169,
+  "test_samples": 170,
+  "missing_images": 1,
+  "corrupted_images": 0,
+  "invalid_xml": 0,
+  "invalid_bounding_boxes": 4,
+  "invalid_labels": 0,
+  "duplicate_samples": 0,
+  "rejected_samples": 5,
+  "rejected_details": [
+    {
+      "file": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3\\State-wise_OLX\\CG\\CG14.xml",
+      "box": [
+        91,
+        136,
+        138,
+        145
+      ],
+      "reason": "Invalid crop dimensions (47x9)"
+    },
+    {
+      "file": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3\\State-wise_OLX\\DN\\DN2.xml",
+      "box": [
+        102,
+        107,
+        148,
+        116
+      ],
+      "reason": "Invalid crop dimensions (46x9)"
+    },
+    {
+      "file": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3\\State-wise_OLX\\HP\\HP20.xml",
+      "box": [
+        44,
+        152,
+        98,
+        153
+      ],
+      "reason": "Invalid crop dimensions (54x1)"
+    },
+    {
+      "file": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3\\State-wise_OLX\\KA\\KA7.xml",
+      "box": [
+        128,
+        154,
+        167,
+        162
+      ],
+      "reason": "Invalid crop dimensions (39x8)"
+    },
+    {
+      "file": "C:\\Users\\SAGAR GANGAL\\OneDrive\\Desktop\\module 3 number 3\\State-wise_OLX\\MH\\MH5.xml",
+      "reason": "Missing image for tag 'MH5.jpg'"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+================================================================================
+SMART TRANSPORT MONITORING — MODULE 3 CURRENT ARCHITECTURE & OCR PIPELINE CONTEXT
+================================================================================
+Project Root: C:\SIH\prototype\smart-transport-monitoring
+Module: module3_incident_anpr / module3_incident_monitoring
+Date: 2026-09-04
+Environment: Python 3.13.14 | PyTorch 2.13.0+cpu | OS: Windows
+
+================================================================================
+1. EXECUTIVE SUMMARY & SYSTEM INTEGRATION
+================================================================================
+The Smart Transport Monitoring system operates as a unified, offline-first edge AI
+framework running on public transit buses, commercial fleets, and surveillance vehicles.
+
+System Architecture:
+- Single Video Capture (SharedVideoSource): Decodes incoming frames once and distributes
+  an identical FramePacket to Module 1 (Road Defect AI), Module 2 (Traffic AI), and
+  Module 3 (Incident & ANPR Intelligence).
+- Single Location Service (SharedGPSService): Serves GPS telemetry fixes to all modules.
+- Offline-First Edge Queue (AlertQueue): SQLite queue with background AlertSyncWorker.
+
+Role of Module 3:
+1. Trajectory Behavioral Analysis: Detects collisions, harsh braking, and swerving.
+2. Emergency & Rash-Driving Routing: Routes incidents to Emergency Dispatch or Traffic Police.
+3. Automatic Number Plate Recognition (ANPR):
+   - Stage 1: Vehicle & License Plate Bounding Box Detection (YOLO).
+   - Stage 2: Cropped Plate Character Recognition (CRNN + CTC Loss).
+
+================================================================================
+2. OCR DATASET PREPARATION & FORENSIC AUDIT
+================================================================================
+Source Data:
+- Raw Pascal VOC XML + Images from local repository ("module 3 number 3").
+- 1,697 Pascal VOC XML annotations with exact Indian plate transcription in <name>.
+- 1,692 valid plate crops extracted and saved to `module3_incident_anpr/indian_license_plate_ocr/`.
+- 5 samples safely rejected (4 invalid tiny height < 10px crops, 1 missing image).
+
+Verified Dataset Blueprint:
+`module3_incident_anpr/indian_license_plate_ocr/`
+├── images/               # 1,692 cropped Indian license plate images (e.g. plate_000001.jpg)
+├── labels.csv            # 1,692 total image-to-text pairs
+├── train.csv             # 1,353 training samples (80%)
+├── val.csv               # 169 validation samples (10%)
+├── test.csv              # 170 independent test samples (10%)
+└── conversion_report.json # Conversion audit log
+
+Dataset Statistics:
+- Total Verified Samples: 1,692
+- Character Vocabulary: 36 alphanumeric characters (0-9, A-Z) + CTC Blank index 0
+- Mean Plate Length: 9.66 characters (Standard Indian RTO: MH12DE1433, DL01CA5678, etc.)
+- Cross-split image leakage: 0 (Strict mutual exclusivity verified by file hashes)
+- Loadability: 100% readable via PIL/OpenCV (0 corrupted images)
+
+================================================================================
+3. OCR MODEL ARCHITECTURE & PIPELINE (STAGE 2)
+================================================================================
+Model: Lightweight CRNN (CNN + BiLSTM + CTC Loss)
+Input Resolution: 1 x 48 x 160 (Grayscale with aspect-ratio-preserving padding to 128)
+
+Architecture Flow:
+Input (1, 48, 160)
+  ↓
+CNN Feature Extractor:
+  - Conv2D(1, 64) -> BatchNorm -> ReLU -> MaxPool(2,2) -> (64, 24, 80)
+  - Conv2D(64, 128) -> BatchNorm -> ReLU -> MaxPool(2,2) -> (128, 12, 40)
+  - Conv2D(128, 256) -> BatchNorm -> ReLU -> Conv2D(256, 256) -> BatchNorm -> ReLU -> MaxPool((2,1)) -> (256, 6, 40)
+  - Conv2D(256, 512) -> BatchNorm -> ReLU -> MaxPool((2,1)) -> (512, 3, 40)
+  ↓
+Width Sequence Mapping:
+  - Permute & Reshape: [Batch, Time=40, Features=1536 (512*3)]
+  ↓
+Recurrent Sequence Modeling:
+  - 2-layer Bidirectional LSTM (hidden_size=256, dropout=0.1) -> [Batch, Time=40, 512]
+  ↓
+Character Classification:
+  - Linear(512, 37) -> Logits [Time=40, Batch, Classes=37]
+  ↓
+CTC Loss / Greedy CTC Decoding (Blank index = 0)
+
+Training Augmentations (Training set only):
+- Mild random rotation (-5° to +5°)
+- Brightness jitter (0.8 - 1.2)
+- Contrast jitter (0.8 - 1.2)
+- Mild Gaussian blur (radius 0.3 - 0.8)
+
+================================================================================
+4. SCRIPTS, COMMANDS & ARTIFACTS
+================================================================================
+Scripts Created:
+1. `module3_incident_anpr/convert_raw_dataset_to_ocr.py`: Converts raw VOC XML to cropped OCR dataset.
+2. `module3_incident_anpr/verify_ocr_dataset.py`: Verifies integrity, image presence, and Indian RTO regex.
+3. `module3_incident_anpr/analyze_ocr_dataset.py`: Forensic audit of character vocabulary, geometry, hashes.
+4. `module3_incident_anpr/train_ocr.py`: Production PyTorch CRNN training pipeline with CTC loss.
+5. `module3_incident_anpr/evaluate_ocr.py`: Evaluates independent test set, computes CER and latency.
+
+Artifacts & Checkpoints:
+- `module3_incident_anpr/ocr_checkpoints/best_ocr_model.pt`
+- `module3_incident_anpr/ocr_checkpoints/latest_ocr_model.pt`
+- `module3_incident_anpr/ocr_checkpoints/training_history.json`
+- `module3_incident_anpr/ocr_dataset_analysis.json`
+- `module3_incident_anpr/ocr_test_results.json`
+
+Training & Evaluation Execution Commands:
+```powershell
+# Run OCR Training
+python .\module3_incident_anpr\train_ocr.py --epochs 40 --batch-size 16 --lr 0.001
+
+# Run Independent Test Evaluation
+python .\module3_incident_anpr\evaluate_ocr.py --checkpoint "module3_incident_anpr/ocr_checkpoints/best_ocr_model.pt" --data-dir "module3_incident_anpr/indian_license_plate_ocr"
+```
+
+================================================================================
+5. MEASURED PERFORMANCE BENCHMARKS (3-EPOCH SMOKE TEST)
+================================================================================
+Hardware: CPU Only (Intel / AMD x86_64)
+
+Epoch Progression:
+- Epoch 1: Train Loss 3.4118, CER 0.982 | Val Loss 3.0157, Val CharAcc 10.43%, Val CER 0.896 (44.4s)
+- Epoch 2: Train Loss 2.8856, CER 0.859 | Val Loss 2.7492, Val CharAcc 17.69%, Val CER 0.823 (43.6s)
+- Epoch 3: Train Loss 2.6529, CER 0.796 | Val Loss 2.5962, Val CharAcc 23.49%, Val CER 0.765 (45.0s)
+
+Inference Latency on CPU:
+- Mean Latency per Plate: 14.88 ms (~67 FPS on single CPU core)
+- Median Latency per Plate: 13.26 ms
+
+Training Duration Projections on CPU:
+- 20 Epochs: ~14.8 minutes
+- 40 Epochs (Recommended): ~29.5 minutes
+- 60 Epochs: ~44.3 minutes
+
+================================================================================
+6. INTEGRATION ROADMAP & WHAT REMAINS
+================================================================================
+Current Status:
+- Dataset converted, verified, and audited.
+- CRNN OCR training pipeline and evaluation suite built and verified on CPU.
+- Module 1 (Road Defect) and Module 2 (Traffic) running live and unaffected.
+
+Next Steps for Full Edge ANPR Integration:
+1. Complete Full CRNN Training (35–40 epochs recommended for convergence).
+2. Connect YOLO plate detection bounding boxes directly into `CRNNOcrModel` inference wrapper (`module3_incident_anpr/inference/`).
+3. Hook verified license plate strings into SQLite queue and Incident schema (`IncidentAlert.plate_number`).

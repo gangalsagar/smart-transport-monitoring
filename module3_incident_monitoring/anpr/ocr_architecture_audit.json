@@ -1,0 +1,469 @@
+{
+  "preprocessing_pipeline": {
+    "input_mode": "Grayscale ('L')",
+    "target_resolution": {
+      "height": 48,
+      "width": 160
+    },
+    "aspect_ratio_handling": "Preserved strictly via uniform scaling (scale = min(160/w, 48/h))",
+    "stretching_distortion": "Zero geometric stretching (non-anamorphic)",
+    "padding_strategy": "Center-aligned zero/constant padding on shorter axis",
+    "padding_fill_value": 128,
+    "interpolation_method": "PIL.Image.BILINEAR",
+    "tensor_normalization": {
+      "range_mapping": "Raw uint8 [0, 255] -> float32 / 255.0 -> (arr - 0.5) / 0.5",
+      "output_tensor_range": "[-1.0, 1.0]",
+      "tensor_shape": "[Batch, 1, 48, 160]"
+    }
+  },
+  "layer_by_layer_trace": [
+    {
+      "layer_index": 0,
+      "layer_name": "Conv2d_1",
+      "layer_type": "Conv2d",
+      "kernel_size": "3x3",
+      "stride": 1,
+      "padding": 1,
+      "input_shape": [
+        1,
+        1,
+        48,
+        160
+      ],
+      "output_shape": [
+        1,
+        64,
+        48,
+        160
+      ]
+    },
+    {
+      "layer_index": 1,
+      "layer_name": "BatchNorm2d_1",
+      "layer_type": "BatchNorm2d",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        64,
+        48,
+        160
+      ],
+      "output_shape": [
+        1,
+        64,
+        48,
+        160
+      ]
+    },
+    {
+      "layer_index": 2,
+      "layer_name": "ReLU_1",
+      "layer_type": "ReLU",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        64,
+        48,
+        160
+      ],
+      "output_shape": [
+        1,
+        64,
+        48,
+        160
+      ]
+    },
+    {
+      "layer_index": 3,
+      "layer_name": "MaxPool2d_1",
+      "layer_type": "MaxPool2d",
+      "kernel_size": "2x2",
+      "stride": 2,
+      "padding": 0,
+      "input_shape": [
+        1,
+        64,
+        48,
+        160
+      ],
+      "output_shape": [
+        1,
+        64,
+        24,
+        80
+      ]
+    },
+    {
+      "layer_index": 4,
+      "layer_name": "Conv2d_2",
+      "layer_type": "Conv2d",
+      "kernel_size": "3x3",
+      "stride": 1,
+      "padding": 1,
+      "input_shape": [
+        1,
+        64,
+        24,
+        80
+      ],
+      "output_shape": [
+        1,
+        128,
+        24,
+        80
+      ]
+    },
+    {
+      "layer_index": 5,
+      "layer_name": "BatchNorm2d_2",
+      "layer_type": "BatchNorm2d",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        128,
+        24,
+        80
+      ],
+      "output_shape": [
+        1,
+        128,
+        24,
+        80
+      ]
+    },
+    {
+      "layer_index": 6,
+      "layer_name": "ReLU_2",
+      "layer_type": "ReLU",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        128,
+        24,
+        80
+      ],
+      "output_shape": [
+        1,
+        128,
+        24,
+        80
+      ]
+    },
+    {
+      "layer_index": 7,
+      "layer_name": "MaxPool2d_2",
+      "layer_type": "MaxPool2d",
+      "kernel_size": "2x2",
+      "stride": 2,
+      "padding": 0,
+      "input_shape": [
+        1,
+        128,
+        24,
+        80
+      ],
+      "output_shape": [
+        1,
+        128,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 8,
+      "layer_name": "Conv2d_3",
+      "layer_type": "Conv2d",
+      "kernel_size": "3x3",
+      "stride": 1,
+      "padding": 1,
+      "input_shape": [
+        1,
+        128,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 9,
+      "layer_name": "BatchNorm2d_3",
+      "layer_type": "BatchNorm2d",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 10,
+      "layer_name": "ReLU_3",
+      "layer_type": "ReLU",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 11,
+      "layer_name": "Conv2d_4",
+      "layer_type": "Conv2d",
+      "kernel_size": "3x3",
+      "stride": 1,
+      "padding": 1,
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 12,
+      "layer_name": "BatchNorm2d_4",
+      "layer_type": "BatchNorm2d",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 13,
+      "layer_name": "ReLU_4",
+      "layer_type": "ReLU",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        12,
+        40
+      ]
+    },
+    {
+      "layer_index": 14,
+      "layer_name": "MaxPool2d_3 (Asymmetric)",
+      "layer_type": "MaxPool2d",
+      "kernel_size": "2x1",
+      "stride": "2x1",
+      "padding": 0,
+      "input_shape": [
+        1,
+        256,
+        12,
+        40
+      ],
+      "output_shape": [
+        1,
+        256,
+        6,
+        40
+      ]
+    },
+    {
+      "layer_index": 15,
+      "layer_name": "Conv2d_5",
+      "layer_type": "Conv2d",
+      "kernel_size": "3x3",
+      "stride": 1,
+      "padding": 1,
+      "input_shape": [
+        1,
+        256,
+        6,
+        40
+      ],
+      "output_shape": [
+        1,
+        512,
+        6,
+        40
+      ]
+    },
+    {
+      "layer_index": 16,
+      "layer_name": "BatchNorm2d_5",
+      "layer_type": "BatchNorm2d",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        512,
+        6,
+        40
+      ],
+      "output_shape": [
+        1,
+        512,
+        6,
+        40
+      ]
+    },
+    {
+      "layer_index": 17,
+      "layer_name": "ReLU_5",
+      "layer_type": "ReLU",
+      "kernel_size": "N/A",
+      "stride": "N/A",
+      "padding": "N/A",
+      "input_shape": [
+        1,
+        512,
+        6,
+        40
+      ],
+      "output_shape": [
+        1,
+        512,
+        6,
+        40
+      ]
+    },
+    {
+      "layer_index": 18,
+      "layer_name": "MaxPool2d_4 (Asymmetric)",
+      "layer_type": "MaxPool2d",
+      "kernel_size": "2x1",
+      "stride": "2x1",
+      "padding": 0,
+      "input_shape": [
+        1,
+        512,
+        6,
+        40
+      ],
+      "output_shape": [
+        1,
+        512,
+        3,
+        40
+      ]
+    }
+  ],
+  "temporal_sequence_metrics": {
+    "input_canvas_resolution": "48 x 160",
+    "final_feature_map_shape": "[Batch, 512, 3, 40]",
+    "final_ctc_temporal_steps (T)": 40,
+    "horizontal_downsampling_factor": "4.0x",
+    "horizontal_pixels_per_step": "4.0 px",
+    "vertical_downsampling_factor": "16x (48px -> 3px)"
+  },
+  "ctc_sequence_capacity": {
+    "8": {
+      "plate_character_length": 8,
+      "min_ctc_steps_distinct_chars": 8,
+      "min_ctc_steps_worst_case_repeated": 15,
+      "available_ctc_time_steps": 40,
+      "effective_time_steps_per_character": 5.0,
+      "capacity_status": "Theoretically Sufficient"
+    },
+    "9": {
+      "plate_character_length": 9,
+      "min_ctc_steps_distinct_chars": 9,
+      "min_ctc_steps_worst_case_repeated": 17,
+      "available_ctc_time_steps": 40,
+      "effective_time_steps_per_character": 4.44,
+      "capacity_status": "Theoretically Sufficient"
+    },
+    "10": {
+      "plate_character_length": 10,
+      "min_ctc_steps_distinct_chars": 10,
+      "min_ctc_steps_worst_case_repeated": 19,
+      "available_ctc_time_steps": 40,
+      "effective_time_steps_per_character": 4.0,
+      "capacity_status": "Theoretically Sufficient"
+    },
+    "11": {
+      "plate_character_length": 11,
+      "min_ctc_steps_distinct_chars": 11,
+      "min_ctc_steps_worst_case_repeated": 21,
+      "available_ctc_time_steps": 40,
+      "effective_time_steps_per_character": 3.64,
+      "capacity_status": "Theoretically Sufficient"
+    },
+    "12": {
+      "plate_character_length": 12,
+      "min_ctc_steps_distinct_chars": 12,
+      "min_ctc_steps_worst_case_repeated": 23,
+      "available_ctc_time_steps": 40,
+      "effective_time_steps_per_character": 3.33,
+      "capacity_status": "Theoretically Sufficient"
+    }
+  },
+  "ctc_training_and_decoding": {
+    "loss_function": "torch.nn.CTCLoss(blank=0, zero_infinity=True)",
+    "decoding_algorithm": "Greedy Argmax Decoding (Best Path)",
+    "blank_index": 0,
+    "blank_token_handling": "Blanks stripped after argmax selection",
+    "consecutive_collapse_rule": "Collapse consecutive identical non-blank predictions into a single token (standard CTC rule)",
+    "deletion_bias_mechanism": [
+      "1. Horizontal Receptive Field Compression: 160px width is compressed 4x down to 40 time steps. For narrow characters (such as '1', 'I', or tightly spaced letters like 'TT'), the CNN activations for adjacent characters can blur into the same temporal step.",
+      "2. Padding Dilution: A crop with high aspect ratio padded with gray bars reduces the active plate width inside the 160px canvas, reducing the effective time steps allocated to the plate text from 40 down to ~24-28 steps (only ~2.4 to 2.8 steps per character on 10-char plates).",
+      "3. Greedy Collapse vs Blank Insertion: If the network fails to emit a distinct blank token between consecutive identical or visually similar characters, CTC greedy collapse forcibly merges them into a single character, directly manifesting as a Deletion error."
+    ]
+  },
+  "substitution_error_root_causes": {
+    "primary_causes": [
+      "1. Fine-Grained Glyph Ambiguity: Feature extractor downsamples vertical height from 48px to 3px (16x vertical compression). Fine horizontal crossbars (differentiating 4 vs 1, C vs D, P vs S, 0 vs 3) lose structural distinction at 3px feature height.",
+      "2. Imbalanced State Prefix Prior: In real-world data, 'MH' and 'HR' appear much more frequently than other states, biasing early recurrent transitions towards 'MH' / '02' / '26' prefix loops."
+    ]
+  }
+}

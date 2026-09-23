@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Transport Phone GPS</title>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            padding: 25px;
+            background: #f4f6f8;
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: 0;
+            border-radius: 8px;
+            background: #287447;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f4f6;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+
+        #coords {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>Smart Transport</h1>
+
+    <p>Phone GPS Edge Sensor</p>
+
+    <button onclick="startGPS()">
+        Start GPS
+    </button>
+
+    <div id="coords">
+        Waiting for GPS...
+    </div>
+
+    <div id="status">
+        GPS not started.
+    </div>
+
+</div>
+
+<script>
+
+let watchId = null;
+
+/*
+ * IMPORTANT:
+ *
+ * Replace this IP with your PC's IPv4 address.
+ *
+ * Example:
+ * http://192.168.1.105:9000/gps/update
+ */
+const SERVER_URL =
+    "http://192.168.0.118/gps/update";
+
+
+function startGPS() {
+
+    if (!navigator.geolocation) {
+
+        setStatus(
+            "ERROR: Browser does not support GPS."
+        );
+
+        return;
+    }
+
+    setStatus(
+        "Requesting phone GPS permission..."
+    );
+
+    watchId =
+        navigator.geolocation.watchPosition(
+
+            position => {
+
+                const gps = {
+
+                    latitude:
+                        position.coords.latitude,
+
+                    longitude:
+                        position.coords.longitude,
+
+                    accuracy_m:
+                        position.coords.accuracy,
+
+                    timestamp:
+                        new Date(
+                            position.timestamp
+                        ).toISOString()
+
+                };
+
+                displayGPS(gps);
+
+                sendGPS(gps);
+
+            },
+
+            error => {
+
+                setStatus(
+                    "GPS ERROR:\n"
+                    + error.message
+                );
+
+            },
+
+            {
+                enableHighAccuracy: true,
+                maximumAge: 2000,
+                timeout: 10000
+            }
+        );
+}
+
+
+function displayGPS(gps) {
+
+    document.getElementById(
+        "coords"
+    ).innerText =
+
+        gps.latitude.toFixed(6)
+        + ", "
+        +
+        gps.longitude.toFixed(6);
+
+}
+
+
+async function sendGPS(gps) {
+
+    try {
+
+        const response =
+            await fetch(
+                SERVER_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(gps)
+                }
+            );
+
+        const result =
+            await response.json();
+
+        if (response.ok) {
+
+            setStatus(
+                "GPS ACTIVE\n\n"
+                + JSON.stringify(
+                    gps,
+                    null,
+                    2
+                )
+                + "\n\n"
+                + "Sent to PC successfully."
+            );
+
+        } else {
+
+            setStatus(
+                "PC rejected GPS:\n"
+                + JSON.stringify(
+                    result,
+                    null,
+                    2
+                )
+            );
+
+        }
+
+    } catch (error) {
+
+        setStatus(
+            "Cannot reach PC GPS server.\n\n"
+            + "Check:\n"
+            + "1. PC and phone are on same network\n"
+            + "2. PC IP address is correct\n"
+            + "3. Port 9000 is accessible\n\n"
+            + error.message
+        );
+
+    }
+}
+
+
+function setStatus(message) {
+
+    document.getElementById(
+        "status"
+    ).innerText = message;
+
+}
+
+</script>
+
+</body>
+</html>

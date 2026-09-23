@@ -1,0 +1,275 @@
+{
+  "test_metadata": {
+    "test_type": "Full-System Simultaneous Integration Test",
+    "video_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_anpr\\test video\\test_video.mp4",
+    "total_frames_processed": 240,
+    "total_video_frames": 240,
+    "execution_duration_sec": 64.89,
+    "average_system_throughput_fps": 3.7,
+    "mean_frame_latency_ms": 267.93
+  },
+  "module_checklist": {
+    "shared_video_source": "PASS",
+    "shared_gps_service": "PASS",
+    "module1_road_defect": "PASS",
+    "module2_traffic_detection": "PASS",
+    "module2_vehicle_tracking": "PASS",
+    "module3_incident_monitoring": "PASS",
+    "module3_anpr_plate_detection": "PASS",
+    "module3_anpr_ocr_recognition": "PASS",
+    "offline_sqlite_alert_queue": "PASS",
+    "central_backend_contract": "PASS"
+  },
+  "pipeline_statistics": {
+    "total_frames": 240,
+    "unique_vehicle_tracks": 19,
+    "module1_defect_alerts": 1,
+    "module2_traffic_alerts": 1,
+    "module3_incident_alerts": 22,
+    "total_alerts_queued_in_sqlite": 24,
+    "incident_events": [
+      {
+        "event_id": "EVT-M3-4ED42647",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 1,
+        "plate_number": "TN7T090",
+        "plate_confidence": 0.752,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk1_f000012.jpg"
+      },
+      {
+        "event_id": "EVT-M3-06755B1D",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 2,
+        "plate_number": "TR27T905",
+        "plate_confidence": 0.331,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk2_f000015.jpg"
+      },
+      {
+        "event_id": "EVT-M3-186EDCE7",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 3,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk3_f000019.jpg"
+      },
+      {
+        "event_id": "EVT-M3-6EC95311",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 6,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-74A73B9A",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 6,
+        "plate_number": "MH07AV",
+        "plate_confidence": 0.599,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk6_f000086.jpg"
+      },
+      {
+        "event_id": "EVT-M3-A029D202",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 9,
+        "plate_number": "MH01BR",
+        "plate_confidence": 0.607,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk9_f000086.jpg"
+      },
+      {
+        "event_id": "EVT-M3-8DC4C045",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 11,
+        "plate_number": "TH07AT",
+        "plate_confidence": 0.396,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk11_f000098.jpg"
+      },
+      {
+        "event_id": "EVT-M3-6348AD9F",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 11,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-F154A944",
+        "event_type": "speeding",
+        "severity": "high",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 10,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_speeding_trk10_f000118.jpg"
+      },
+      {
+        "event_id": "EVT-M3-66C14EAF",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 10,
+        "plate_number": "GB010",
+        "plate_confidence": 0.235,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk10_f000122.jpg"
+      },
+      {
+        "event_id": "EVT-M3-13BF2845",
+        "event_type": "speeding",
+        "severity": "high",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 13,
+        "plate_number": "KA17",
+        "plate_confidence": 0.276,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_speeding_trk13_f000126.jpg"
+      },
+      {
+        "event_id": "EVT-M3-E805179A",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 10,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-8E4DA4CD",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 13,
+        "plate_number": "KL01AL002",
+        "plate_confidence": 0.6,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk13_f000134.jpg"
+      },
+      {
+        "event_id": "EVT-M3-24B05FC4",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 15,
+        "plate_number": "MH03BQ0",
+        "plate_confidence": 0.649,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk15_f000140.jpg"
+      },
+      {
+        "event_id": "EVT-M3-D8DE6BCA",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 17,
+        "plate_number": "KH14",
+        "plate_confidence": 0.291,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk17_f000150.jpg"
+      },
+      {
+        "event_id": "EVT-M3-E1B2973E",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 15,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-8E9E4861",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 13,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-D020EF0E",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 14,
+        "plate_number": "MH04BT2",
+        "plate_confidence": 0.462,
+        "plate_status": "recognized",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk14_f000167.jpg"
+      },
+      {
+        "event_id": "EVT-M3-A1AC3DB8",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 17,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-C560D6E9",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 19,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      },
+      {
+        "event_id": "EVT-M3-8BFD6523",
+        "event_type": "sudden_lane_change",
+        "severity": "medium",
+        "assigned_team": "rash_driving_team",
+        "vehicle_track_id": 19,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "detected_unreadable",
+        "evidence_path": "C:\\SIH\\prototype\\smart-transport-monitoring\\module3_incident_monitoring\\data\\evidence\\incident_sudden_lane_change_trk19_f000185.jpg"
+      },
+      {
+        "event_id": "EVT-M3-41541289",
+        "event_type": "collision",
+        "severity": "critical",
+        "assigned_team": "emergency_team",
+        "vehicle_track_id": 18,
+        "plate_number": null,
+        "plate_confidence": 0.0,
+        "plate_status": "unavailable",
+        "evidence_path": null
+      }
+    ]
+  }
+}

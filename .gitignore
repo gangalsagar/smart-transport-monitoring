@@ -1,37 +1,110 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.py[cod]
+*.pyo
 .venv/
 venv/
 env/
 
-# Environment variables
+# =========================
+# Environment / Secrets
+# =========================
 .env
+.env.*
+!.env.example
 
-# ML models
+# =========================
+# ML Model Weights
+# =========================
 *.pt
 *.onnx
 *.engine
+*.pth
 
+# =========================
 # Datasets
+# =========================
 data/raw/
 data/processed/
 datasets/
+nexar_dataset/
+rdd2022_yolo.zip
 
-# Videos/images generated during testing
+module1_road_defect/data/raw/
+module1_road_defect/data/processed/
+module2_traffic/data/
+module3_incident_anpr/indian_license_plate_ocr/
+module3_incident_anpr/indian_license_plate_ocr_q1000/
+
+# =========================
+# Training / Experiment Outputs
+# =========================
+runs/
+module1_road_defect/runs/
+module1_road_defect/training/runs/
+
+module3_incident_anpr/results/
+module3_incident_anpr/ocr_checkpoints/
+module3_incident_anpr/ocr_checkpoints_arch_v2/
+module3_incident_anpr/ocr_checkpoints_q1000/
+
+# =========================
+# Generated Analysis / Test Outputs
+# =========================
+module3_incident_anpr/*.json
+module3_incident_anpr/*_results.json
+module3_incident_anpr/*_analysis.json
+module3_incident_anpr/*_comparison.json
+module3_incident_anpr/ocr_architecture_audit.json
+
+# =========================
+# Runtime Data
+# =========================
+backend/data/
+data/
+scratch/
+
+module1_road_defect/data/alerts/
+module1_road_defect/data/evidence/
+module1_road_defect/data/visualization/
+
+# =========================
+# Videos / Large Test Media
+# =========================
 *.mp4
 *.avi
 *.mov
+*.mkv
+*.webm
 
-# Node
+# =========================
+# Node / Frontend
+# =========================
 node_modules/
+dashboard/node_modules/
 dashboard/dist/
 dashboard/build/
 
-# IDE
+# =========================
+# Logs / Databases
+# =========================
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# =========================
+# IDE / OS
+# =========================
 .vscode/
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
+
+# =========================
+# Deferred Module
+# =========================
+module4_passenger_demand/
+tests/test_module4_passenger_demand.py
