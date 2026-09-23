@@ -78,6 +78,8 @@ module1_road_defect/data/visualization/
 *.mov
 *.mkv
 *.webm
+!dashboard/public/*.mp4
+!dashboard/public/**/*.mp4
 
 # =========================
 # Node / Frontend
