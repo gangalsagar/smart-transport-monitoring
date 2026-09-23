@@ -1,6 +1,7 @@
+import os
+import json
 from pathlib import Path
 from typing import Optional
-import json
 
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
@@ -63,18 +64,27 @@ app = FastAPI(
 # CORS
 # ============================================================
 
+local_origins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+    "http://127.0.0.1:5175",
+    "http://127.0.0.1:3000",
+]
+
+env_cors = os.getenv("CORS_ORIGINS")
+if env_cors:
+    extra_origins = [orig.strip() for orig in env_cors.split(",") if orig.strip()]
+    allowed_origins = list(dict.fromkeys(local_origins + extra_origins))
+else:
+    allowed_origins = local_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://localhost:5175",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-        "http://127.0.0.1:5175",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

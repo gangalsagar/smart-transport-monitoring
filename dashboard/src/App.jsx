@@ -65,7 +65,7 @@ export default function App() {
       setLastUpdated(new Date());
     } catch (err) {
       console.error("Backend connection error:", err);
-      setError("Central backend disconnected (127.0.0.1:8001)");
+      setError(`Central backend disconnected (${API_BASE_URL.replace(/^https?:\/\//, "")})`);
     } finally {
       setLoading(false);
     }
@@ -190,7 +190,7 @@ export default function App() {
                   <span className={`pulse-dot ${error ? "error" : "green"}`} />
                   <span style={{ letterSpacing: "0.5px" }}>{error ? "BACKEND OFFLINE" : "SYSTEM ONLINE"}</span>
                 </div>
-                <div className="server-endpoint-text">FASTAPI · 127.0.0.1:8001</div>
+                <div className="server-endpoint-text">FASTAPI · {API_BASE_URL.replace(/^https?:\/\//, "")}</div>
               </div>
             </div>
           </aside>

@@ -102,9 +102,4 @@ dashboard/build/
 .idea/
 .DS_Store
 Thumbs.db
-
-# =========================
-# Deferred Module
-# =========================
-module4_passenger_demand/
-tests/test_module4_passenger_demand.py
+

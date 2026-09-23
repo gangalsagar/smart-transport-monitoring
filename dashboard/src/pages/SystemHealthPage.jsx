@@ -1,5 +1,5 @@
 import React from "react";
-import { formatTimestamp } from "../utils/formatters";
+import { formatTimestamp, API_BASE_URL } from "../utils/formatters";
 
 export default function SystemHealthPage({ alerts, lastUpdated, backendConnected, onRefresh }) {
   const roadDefects = alerts.filter((a) => a.module?.type === "road_defect");
@@ -73,7 +73,7 @@ export default function SystemHealthPage({ alerts, lastUpdated, backendConnected
           <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <div className="meta-row">
               <span className="meta-label">REST Endpoint</span>
-              <span className="meta-val" style={{ fontFamily: "var(--font-mono)" }}>http://127.0.0.1:8001</span>
+              <span className="meta-val" style={{ fontFamily: "var(--font-mono)" }}>{API_BASE_URL}</span>
             </div>
             <div className="meta-row">
               <span className="meta-label">Synchronized Alerts</span>

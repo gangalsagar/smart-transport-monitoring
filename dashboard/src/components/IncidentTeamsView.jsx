@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-const API_URL = "http://127.0.0.1:8001";
+import { API_BASE_URL } from "../utils/formatters";
 
 function IncidentTeamsView({ incidents, onStatusUpdated }) {
   const [activeTeamTab, setActiveTeamTab] = useState("emergency"); // "emergency" | "rash_driving"
@@ -15,7 +14,7 @@ function IncidentTeamsView({ incidents, onStatusUpdated }) {
 
   const handleStatusChange = async (eventId, newStatus) => {
     try {
-      const resp = await fetch(`${API_URL}/incidents/${eventId}/status?status=${newStatus}`, {
+      const resp = await fetch(`${API_BASE_URL}/incidents/${eventId}/status?status=${newStatus}`, {
         method: "PATCH",
       });
       if (resp.ok && onStatusUpdated) {
@@ -31,7 +30,7 @@ function IncidentTeamsView({ incidents, onStatusUpdated }) {
     if (!rawPath) return null;
     const normalized = rawPath.replaceAll("\\", "/");
     const filename = normalized.split("/").pop();
-    return `${API_URL}/evidence/${encodeURIComponent(filename)}`;
+    return `${API_BASE_URL}/evidence/${encodeURIComponent(filename)}`;
   };
 
   return (
