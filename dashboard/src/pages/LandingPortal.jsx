@@ -184,9 +184,18 @@ export default function LandingPortal({ onLaunchDashboard, alertsCount = 0 }) {
       {/* Editorial Footer */}
       <footer style={{ borderTop: "1px solid var(--line)", padding: "48px 32px", maxWidth: "1280px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <TransportLogo size={28} />
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#111111" }}>Smart Urban Monitoring</span>
-          <span style={{ fontSize: "12px", color: "var(--muted)" }}>© 2026 Auralis System. Engineered for precision.</span>
+          <img
+            src="/brand/circular_logo_transparent.png"
+            alt="DRISHTI"
+            style={{ width: "28px", height: "28px", objectFit: "contain", flexShrink: 0 }}
+          />
+          <img
+            src="/brand/brand_name_transparent.png"
+            alt="DRISHTI"
+            style={{ height: "18px", width: "auto", objectFit: "contain" }}
+          />
+          <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--muted)" }}>| Smart Urban Monitoring</span>
+          <span style={{ fontSize: "12px", color: "var(--muted)" }}>© 2026 DRISHTI Platform. Engineered for precision.</span>
         </div>
         <div style={{ display: "flex", gap: "24px", fontSize: "13px", color: "var(--muted)" }}>
           <span style={{ cursor: "pointer", color: "#111111", fontWeight: 500 }} onClick={onLaunchDashboard}>Command Center</span>

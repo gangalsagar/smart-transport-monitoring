@@ -449,20 +449,20 @@ html, body, #root {
    ============================================================ */
 .metric-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
 }
 
 .metric-card {
   background: var(--panel-bg);
   border: 1px solid var(--line);
-  border-radius: var(--radius-xl);
-  padding: 20px 22px;
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 126px;
+  min-height: 98px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
@@ -471,48 +471,60 @@ html, body, #root {
 .metric-card:hover {
   transform: translateY(-2px);
   border-color: #D3D3CE;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.05);
 }
 
 .metric-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .metric-title {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .metric-icon {
-  font-size: 18px;
+  font-size: 16px;
+  opacity: 0.85;
 }
 
 .metric-value-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+  gap: 8px;
 }
 
 .metric-value {
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--text-bright);
-  line-height: 1;
+  line-height: 1.15;
 }
 
 .metric-footer {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 4px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ============================================================

@@ -100,10 +100,21 @@ export default function App() {
         <>
           {/* Sidebar Navigation */}
           <aside className="sidebar">
-            <div className="sidebar-header">
-              <TransportLogo size={32} />
+            <div className="sidebar-header" style={{ cursor: "pointer" }} onClick={navigateToLanding} title="Return to Landing Portal">
+              <img
+                src="/brand/circular_logo_transparent.png"
+                alt="DRISHTI"
+                style={{ width: "34px", height: "34px", objectFit: "contain", flexShrink: 0 }}
+              />
               <div className="brand-info">
-                <span className="brand-title">SMART TRANSPORT MONITORING</span>
+                <img
+                  src="/brand/brand_name_transparent.png"
+                  alt="DRISHTI"
+                  style={{ height: "20px", width: "auto", objectFit: "contain", alignSelf: "flex-start" }}
+                />
+                <span className="brand-subtitle" style={{ fontSize: "10.5px", color: "var(--muted)", fontWeight: 500, letterSpacing: "0.02em" }}>
+                  Smart Urban Monitoring
+                </span>
               </div>
             </div>
 
@@ -156,6 +167,7 @@ export default function App() {
                 {incidentCount > 0 && <span className="nav-badge danger">{incidentCount}</span>}
               </button>
 
+              {/* Temporarily hidden from navigation
               <button
                 className={`nav-item ${activeTab === "anpr" ? "active" : ""}`}
                 onClick={() => setActiveTab("anpr")}
@@ -163,6 +175,7 @@ export default function App() {
                 <span className="nav-icon">🚘</span>
                 <span>Vehicles / ANPR</span>
               </button>
+              */}
 
               <button
                 className={`nav-item ${activeTab === "passengers" ? "active" : ""}`}
