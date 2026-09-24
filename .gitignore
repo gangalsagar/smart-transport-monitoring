@@ -26,8 +26,8 @@ env/
 # =========================
 # Datasets
 # =========================
-data/raw/
-data/processed/
+data/*
+!data/passenger/
 datasets/
 nexar_dataset/
 rdd2022_yolo.zip
@@ -35,6 +35,7 @@ rdd2022_yolo.zip
 module1_road_defect/data/raw/
 module1_road_defect/data/processed/
 module2_traffic/data/
+module3_incident_monitoring/data/
 module3_incident_anpr/indian_license_plate_ocr/
 module3_incident_anpr/indian_license_plate_ocr_q1000/
 
@@ -60,10 +61,8 @@ module3_incident_anpr/*_comparison.json
 module3_incident_anpr/ocr_architecture_audit.json
 
 # =========================
-# Runtime Data
+# Runtime Data (backend data un-ignored to preserve demo outputs for Modules 1, 2, 3)
 # =========================
-backend/data/
-data/
 scratch/
 
 module1_road_defect/data/alerts/

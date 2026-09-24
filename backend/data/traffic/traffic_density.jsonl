@@ -1,0 +1,2 @@
+{"module_type": "traffic", "timestamp": 5.0, "frame_number": 120, "vehicle_count": 6, "traffic_level": "medium", "intensity": 0.6, "latitude": 12.9753, "longitude": 77.591, "source": "windows_laptop_location", "gps_valid": true}
+{"module_type": "traffic", "timestamp": 10.0, "frame_number": 240, "vehicle_count": 10, "traffic_level": "medium", "intensity": 0.6, "latitude": 12.9753, "longitude": 77.591, "source": "windows_laptop_location", "gps_valid": true}

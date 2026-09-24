@@ -1,0 +1,11 @@
+pass_id,passenger_category,valid_from,valid_until,allowed_routes,status
+P458721,general,2026-01-01,2026-12-31,"25A,25B,335E",active
+STU-9081,student,2026-01-01,2026-12-31,"25A,G4",active
+SNR-3312,senior,2025-01-01,2027-01-01,,active
+EMP-1044,employee,2026-01-01,2026-06-30,"25A",active
+EXP-2024,general,2024-01-01,2024-12-31,"25A",expired
+RTE-RESTRICT,general,2026-01-01,2026-12-31,"ROUTE-999",active
+CAN-5501,general,2026-01-01,2026-12-31,"25A",cancelled
+P998234,general,2026-01-01,2026-12-31,"25A,500D",active
+STU-4412,student,2026-01-01,2026-12-31,"25A",active
+SNR-8890,senior,2025-06-01,2027-06-01,,active
